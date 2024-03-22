@@ -12,4 +12,7 @@ public class LoginPage {
 
     public static final Target LOGIN = Target.the("{0} login button")
             .located(By.cssSelector("#login-button"));
+
+    public static final Target ERROR_MESSAGE = Target.the("{0} error message")
+            .located(By.cssSelector("h3"));
 }
