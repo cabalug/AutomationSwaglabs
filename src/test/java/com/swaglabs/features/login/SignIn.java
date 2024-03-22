@@ -1,22 +1,32 @@
 package com.swaglabs.features.login;
 
-import com.swaglabs.tasks.Login;
+import com.swaglabs.models.User;
+import com.swaglabs.tasks.Authenticate;
 import net.serenitybdd.junit5.SerenityJUnit5Extension;
 import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.annotations.CastMember;
+import net.serenitybdd.screenplay.ensure.Ensure;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import static com.swaglabs.enums.PageConfiguration.LOGIN_PAGE;
+import static com.swaglabs.enums.Messages.PRODUCT_PAGE_TITLE;
+import static com.swaglabs.ui.ProductPage.TITLE;
 
 @ExtendWith(SerenityJUnit5Extension.class)
 public class SignIn {
 
     @CastMember(name = "Luis")
-    Actor user;
+    Actor luis;
 
     @Test
     public void loginAsStandardUser() {
-        user.attemptsTo(Login.toThe(LOGIN_PAGE.getPath()));
+        User user = new User("standard_user", "secret_sauce");
+        luis.attemptsTo(
+                Authenticate.withInfo(user)
+        );
+
+        luis.attemptsTo(
+                Ensure.that(TITLE).text().isEqualTo(PRODUCT_PAGE_TITLE.getPath())
+        );
     }
 }
