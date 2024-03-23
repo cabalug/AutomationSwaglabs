@@ -46,4 +46,10 @@ test {
 
 gradle.startParameter.continueOnFailure = true
 
+serenity {
+    reports = ["single-page-html"]
+    testRoot = "com.swaglabs.features"
+    requirementsBaseDir = "com.swaglabs.features"
+}
+
 test.finalizedBy(aggregate)
